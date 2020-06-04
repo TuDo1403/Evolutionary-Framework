@@ -2,16 +2,8 @@ import numpy as np
 from enum import Enum
 import fitness_function as ff
 
-from GA import initialize
-from GA import evaluate
-from GA import max_gen_reached
-from GA import pop_converge
-
-from plot import get_plot_data
-from plot import contour_plot
-from plot import scatter_plot
-from plot import contour_3D
-from plot import scatter_3D
+from GA import *
+from plot import *
 
 
 def variate(pop, crossover_mode):
@@ -121,8 +113,8 @@ def optimize(params, plot=False, print_scr=True):
 
         # Visualize / log result
         if print_scr and gen % 100 == 0:
-            print('## Gen {}: {} (Fitness: {})'.format(gen, P[comparer(f_P)].reshape(1, -1), 
-                                                       f_P[comparer(f_P)]))
+            print('## Gen {}: {} (Fitness: {})'.format(gen, pop[comparer(f_pop)].reshape(1, -1), 
+                                                       f_pop[comparer(f_pop)]))
         if plottable:
             ax.clear()
             if plot == 1:

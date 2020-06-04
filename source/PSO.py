@@ -1,15 +1,7 @@
 import numpy as np
 
-from GA import initialize
-from GA import evaluate
-from GA import max_gen_reached
-from GA import pop_converge
-
-from plot import get_plot_data
-from plot import contour_plot
-from plot import scatter_plot
-from plot import contour_3D
-from plot import scatter_3D
+from GA import *
+from plot import *
 
 np.set_printoptions(suppress=True)  # Prevent numpy exponential notation on print, default False
 
