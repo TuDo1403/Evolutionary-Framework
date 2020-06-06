@@ -1,9 +1,10 @@
 import numpy as np
-from enum import Enum
-import fitness_function as ff
 
-from GA import *
-from plot import *
+import numpy as np
+
+from optimizers.GA import *
+
+from utils.plot import *
 
 
 def variate(pop, crossover_mode):

@@ -1,9 +1,8 @@
 import numpy as np
-import fitness_function as ff
-import math
 
-from GA import *
-from plot import *
+from optimizers.GA import *
+
+from utils.plot import *
 
 from numpy import arange
 from numpy import newaxis
@@ -121,7 +120,7 @@ def optimize(params, plot=False, print_scr=False):
     # Initialize
     comparer = np.argmax if maximize else np.argmin
     np.random.seed(seed)
-    epsilon= 10**-5
+    epsilon = 10**-5
     pop = initialize(num_inds, num_params, 
                      domain=[lower_bound, upper_bound], 
                      real_valued=real_valued)
@@ -160,6 +159,7 @@ def optimize(params, plot=False, print_scr=False):
         pop = pool[pool_indices]
         f_pop = f_pool[pool_indices]
         #
+
 
         # Visualize / log result
         if print_scr and gen % 100 == 0:

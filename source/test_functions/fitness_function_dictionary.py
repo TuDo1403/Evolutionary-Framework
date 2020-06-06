@@ -1,4 +1,4 @@
-import fitness_function as ff
+import test_functions.fitness_function as ff
 import numpy as np
 
 

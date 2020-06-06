@@ -1,7 +1,8 @@
 import numpy as np
 
-from GA import *
-from plot import *
+from optimizers.GA import *
+
+from utils.plot import *
 
 np.set_printoptions(suppress=True)  # Prevent numpy exponential notation on print, default False
 
