@@ -10,7 +10,7 @@ def initialize(num_inds, num_params, domain=[0, 2], real_valued=False):
                                 size=(num_inds, num_params))
     else:
         pop = np.random.randint(low=lower_bound, 
-                                high=upper_bound+1, 
+                                high=upper_bound, 
                                 size=(num_inds, num_params))
     return pop
 

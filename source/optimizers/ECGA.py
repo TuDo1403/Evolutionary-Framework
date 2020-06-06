@@ -189,7 +189,7 @@ def optimize(params, plot=False, print_scr=False):
         opt_sol_found = len(np.where(diffs <= num_params*epsilon)[0]) != 0
 
     result = { 'solution' : solution, 
-               'model' : model,
+               'model' : pop_model,
                'evaluate function calls' : num_f_func_calls, 
                'global optima found' : opt_sol_found }
     return result
