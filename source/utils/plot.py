@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import test_functions.fitness_function_dictionary as f_dict
 from matplotlib import cm
+
+import fitness_function_dictionary as f_dict
 
 def scatter_plot(ax_lim, ax, raw_data, title='', hold=True):
     x, y = raw_data[:, 0], raw_data[:, 1]
@@ -96,9 +97,9 @@ def get_plot_data(f_dict):
     return (x_mesh, y_mesh, z_mesh)
 
 # dict = f_dict.onemax_dict
-# dict = f_dict.himmelblau_dict
-# # dict = f_dict.cross_in_tray_dict
-# dict = f_dict.rastrigin_dict
+# # dict = f_dict.himmelblau_dict
+# # # dict = f_dict.cross_in_tray_dict
+# # dict = f_dict.rastrigin_dict
 # coords = get_plot_data(dict)
 # print("i'm here")
 # # contour_plot(coords, dict)

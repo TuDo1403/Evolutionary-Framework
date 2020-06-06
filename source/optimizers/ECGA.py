@@ -1,7 +1,6 @@
 import numpy as np
 
 from optimizers.GA import *
-
 from utils.plot import *
 
 from numpy import arange

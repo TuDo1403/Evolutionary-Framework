@@ -1,7 +1,6 @@
 import numpy as np
 
-from GA import *
-
+from optimizers.GA import *
 from utils.plot import *
 
 from numpy import arange
@@ -160,11 +159,10 @@ def optimize(params, plot=False, print_scr=False):
         f_pop = f_pool[pool_indices]
         #
 
-
         # Visualize / log result
         if print_scr and gen % 100 == 0:
-            print('## Gen {}: {} (Fitness: {})'.format(gen, P[comparer(f_P)].reshape(1, -1), 
-                                                       f_P[comparer(f_P)]))
+            print('## Gen {}: {} (Fitness: {})'.format(gen, pop[comparer(f_pop)].reshape(1, -1), 
+                                                       f_pop[comparer(f_pop)]))
         if plottable:
             ax.clear()
             if plot == 1:

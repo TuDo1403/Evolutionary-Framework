@@ -7,8 +7,6 @@ from numpy import cos
 
 def onemax(ind):
     f = sum(ind)
-    if f > len(ind) or f < 0:
-        return len(ind) // 2
     return f
 
 def trap(ind, k):
@@ -16,9 +14,6 @@ def trap(ind, k):
     for i in range(0, len(ind), k):
         u = np.sum(ind[i : i + k])
         f += u if u == k else k - u - 1
-
-    if f > len(ind) or f < 0:
-        return len(ind) // 2
     return f
 
 def trap_five(ind):

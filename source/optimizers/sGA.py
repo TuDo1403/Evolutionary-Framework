@@ -1,9 +1,6 @@
 import numpy as np
 
-import numpy as np
-
 from optimizers.GA import *
-
 from utils.plot import *
 
 
