@@ -39,14 +39,14 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
             help='0 (no plot), 1 (2d plot), 2 (3d plot)')
 def cli(optimizer, func, optimize, seed, gen, pshape, 
         tsize, mode, printscr, plot):
-    f_func = func_dict[func]
-    if f_func['d'] == 0:
-        f_func['d'] = pshape[1]
-        if f_func['name'] == 'One Max' or 'Trap' in f_func['name']:
-            f_func['global minimum'] = np.zeros((1, f_func['d']))
-            f_func['global maximum'] = np.ones((1, f_func['d']))
+    f_dict = func_dict[func]
+    if f_dict['d'] == 0:
+        f_dict['d'] = pshape[1]
+        if f_dict['name'] == 'One Max' or 'Trap' in f_dict['name']:
+            f_dict['global minimum'] = np.zeros((1, f_dict['d']))
+            f_dict['global maximum'] = np.ones((1, f_dict['d']))
     params = opt_dict[optimizer].get_parameters(N=pshape[0], s=seed, g=gen, 
-                                                 mode=mode, f=f_func, 
+                                                 mode=mode, f=f_dict, 
                                                  maximize=optimize, t_size=tsize)
 
     opt_method = opt_dict[optimizer]
