@@ -189,7 +189,8 @@ def optimize(params, plot=False, print_scr=False):
 
     result = { 'solution' : solution, 
                'model' : pop_model,
-               'evaluate function calls' : num_f_func_calls, 
+               'evaluate function calls' : num_f_func_calls,
+               'generations' : gen, 
                'global optima found' : opt_sol_found }
     return result
 

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
 
-import fitness_function_dictionary as f_dict
+import test_functions.fitness_function_dictionary as f_dict
 
 def scatter_plot(ax_lim, ax, raw_data, title='', hold=True):
     x, y = raw_data[:, 0], raw_data[:, 1]

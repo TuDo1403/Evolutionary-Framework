@@ -20,9 +20,8 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
-@click.option('-max', 'optimize', flag_value='max', default=False, 
+@click.option('-max', 'maximize', default=False, 
             help='Define whether to maximize or minimize the output')
-@click.option('-min', 'optimize', flag_value='min')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
 @click.option('--gen', '-g', default=-1, type=int, 
@@ -37,7 +36,7 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
             help='Print result to command line')
 @click.option('--plot', '-plt', default=0, type=click.IntRange(0, 3), 
             help='0 (no plot), 1 (2d plot), 2 (3d plot)')
-def cli(optimizer, func, optimize, seed, gen, pshape, 
+def cli(optimizer, func, maximize, seed, gen, pshape, 
         tsize, mode, printscr, plot):
     f_dict = func_dict[func]
     if f_dict['d'] == 0:
@@ -47,7 +46,7 @@ def cli(optimizer, func, optimize, seed, gen, pshape,
             f_dict['global maximum'] = np.ones((1, f_dict['d']))
     params = opt_dict[optimizer].get_parameters(N=pshape[0], s=seed, g=gen, 
                                                  mode=mode, f=f_dict, 
-                                                 maximize=optimize, t_size=tsize)
+                                                 maximize=maximize, t_size=tsize)
 
     opt_method = opt_dict[optimizer]
     result = opt_method.optimize(params, plot, printscr)
