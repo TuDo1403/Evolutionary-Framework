@@ -21,7 +21,7 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
-@click.option('-max', 'maximize', default=False, 
+@click.option('-max', 'maximize', default=False, type=bool,
             help='Define whether to maximize or minimize the output')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
@@ -52,3 +52,6 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
     opt_method = opt_dict[optimizer]
     result = opt_method.optimize(params, plot, printscr)
     print(result)
+
+
+# cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 3000, 50, '-max', True, '-g', '1000', '-plt', 0])

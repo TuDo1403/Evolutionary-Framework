@@ -14,27 +14,9 @@ def compute_velocity(v, g, P, p, params):
     (c1, c2) = params['ac']
     w = params['iw']
     r_p, r_g = rand(), rand()
-    
-    d1_1, d1_0 = np.zeros(p.shape), np.zeros(p.shape)
-    d2_1, d2_0 = np.zeros(p.shape), np.zeros(p.shape)
-    new_v = np.zeros(v.shape)
+    new_v = w*v + c1*r_p * (p - P) + c2*r_g * (g - P)
+    return new_v
 
-    d1_1[p == 1] = c1 * r_p
-    d1_0[p == 1] = c1 * r_p * -1
-
-    d2_1[:, g == 1] = c2 * r_g
-    d2_0[:, g == 1] = c2 * r_g * -1
-
-    new_v[P == 0] = w*new_v[P == 0] + d1_1 + d2_1
-    new_v[P == 1] = w*new_v[P == 1] + d1_0 + d2_0
-
-    return new_v.astype(P.dtype)
-
-def velocity_zero():
-    pass
-
-def velocity_one():
-    pass
 
 def selection(f_current, f_prev, maximize=False):
     if maximize:
@@ -137,8 +119,7 @@ def optimize(params, plot=0, print_scr=False):
 
         # Variate
         v = compute_velocity(v, g, P, p, params)
-        r = uniform(low=0, high=1)
-        P = (r < sigmoid(v)).astype(np.int)
+        P = (sigmoid(v) > 0.5).astype(np.int)
         #
 
         # Visualize / log result

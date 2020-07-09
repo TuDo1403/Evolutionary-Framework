@@ -12,7 +12,7 @@ def compute_velocity(v, g, P, p, params):
     w = params['iw']
     r_p, r_g = rand(), rand()
     new_v = w*v + c1*r_p * (p - P) + c2*r_g * (g - P)
-    return new_v.astype(P.dtype)
+    return new_v
 
 def selection(f_current, f_prev, maximize=False):
     if maximize:
