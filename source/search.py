@@ -4,6 +4,7 @@ import numpy as np
 import optimizers.PSO as pso
 import optimizers.ECGA as ecga
 import optimizers.sGA as sga
+import optimizers.BPSO as bpso
 import test_functions.fitness_function_dictionary as f_dict
 
 func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
@@ -13,7 +14,7 @@ func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
             'booth' : f_dict.booth_dict,
             'rastrigin' : f_dict.rastrigin_dict,
                     }
-opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
+opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
 
 @click.command()
 @click.option('--optimizer', '-opt', required=True, type=click.Choice(opt_dict.keys(), case_sensitive=False), 
