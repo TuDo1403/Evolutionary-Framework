@@ -5,6 +5,9 @@ from utils.plot import *
 
 np.set_printoptions(suppress=True)  # Prevent numpy exponential notation on print, default False
 
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
 
 from numpy.random import rand
 def compute_velocity(v, g, P, p, params):
@@ -13,6 +16,7 @@ def compute_velocity(v, g, P, p, params):
     r_p, r_g = rand(), rand()
     new_v = w*v + c1*r_p * (p - P) + c2*r_g * (g - P)
     return new_v
+
 
 def selection(f_current, f_prev, maximize=False):
     if maximize:
@@ -115,7 +119,7 @@ def optimize(params, plot=0, print_scr=False):
 
         # Variate
         v = compute_velocity(v, g, P, p, params)
-        P += v
+        P = (sigmoid(v) > 0.5).astype(np.int)
         #
 
         # Visualize / log result
@@ -147,8 +151,7 @@ def optimize(params, plot=0, print_scr=False):
         opt_sol_found = len(np.where(diffs <= num_params*epsilon)[0]) != 0
 
     result = { 'solution' : solution, 
-               'evaluate function calls' : num_f_func_calls,
-               'generations' : gen, 
+               'evaluate function calls' : num_f_func_calls, 
                'global optima found' : opt_sol_found }
     return result
 

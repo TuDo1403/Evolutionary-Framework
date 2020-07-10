@@ -4,6 +4,7 @@ import numpy as np
 import optimizers.PSO as pso
 import optimizers.ECGA as ecga
 import optimizers.sGA as sga
+import optimizers.BPSO as bpso
 import test_functions.fitness_function_dictionary as f_dict
 
 func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
@@ -13,14 +14,18 @@ func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
             'booth' : f_dict.booth_dict,
             'rastrigin' : f_dict.rastrigin_dict,
                     }
-opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
+opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
 
 @click.command()
 @click.option('--optimizer', '-opt', required=True, type=click.Choice(opt_dict.keys(), case_sensitive=False), 
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
+<<<<<<< HEAD
 @click.option('--maximize', '-max', default=False, 
+=======
+@click.option('-max', 'maximize', default=False, type=bool,
+>>>>>>> 8250b2c6934ea9290ecf4a16263c4a99ff4a762b
             help='Define whether to maximize or minimize the output')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
@@ -51,3 +56,6 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
     opt_method = opt_dict[optimizer]
     result = opt_method.optimize(params, plot, printscr)
     print(result)
+
+
+# cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 3000, 50, '-max', True, '-g', '1000', '-plt', 0])
