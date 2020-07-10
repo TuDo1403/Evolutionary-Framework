@@ -99,28 +99,15 @@ def optimize(params, plot=0, print_scr=False):
     num_f_func_calls = 0
     #
     while not pop_converge(P):
-        gen += 1
-        if max_gen_reached(gen, max_gen):
-            break
-
         # Evaluate
         f_P = evaluate(P, f_dict['function'])
         f_p = evaluate(p, f_dict['function'])
 
         num_f_func_calls += len(f_P) * 2
 
-        # Selection
-        selected_indices = selection(f_P, f_p, maximize)
-        p[selected_indices] = P[selected_indices]
-        f_p[selected_indices] = f_P[selected_indices]
-
-        g_indices = select_best_neighbors(selection_mode, f_p, maximize)
-        g = p[g_indices]
-
-        # Variate
-        v = compute_velocity(v, g, P, p, params)
-        P = (sigmoid(v) > 0.5).astype(np.int)
-        #
+        gen += 1
+        if max_gen_reached(gen, max_gen):
+            break
 
         # Visualize / log result
         if print_scr and gen % 100 == 0:
@@ -139,9 +126,24 @@ def optimize(params, plot=0, print_scr=False):
             plt.pause(epsilon)
         #
 
+        # Selection
+        selected_indices = selection(f_P, f_p, maximize)
+        p[selected_indices] = P[selected_indices]
+        f_p[selected_indices] = f_P[selected_indices]
+
+        g_indices = select_best_neighbors(selection_mode, f_p, maximize)
+        g = p[g_indices]
+
+        # Variate
+        v = compute_velocity(v, g, P, p, params)
+        r = uniform(size=(num_inds, num_params))
+        P = (r < sigmoid(v)).astype(P.dtype)
+        #
+
     if plottable: 
         plt.show()     
 
+    #f_P = evaluate(P, f_dict['function'])
     solution =  P[comparer(f_P)].reshape(1, -1).flatten()
     opt_sol_found = None
 

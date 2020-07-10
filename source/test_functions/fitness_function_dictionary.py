@@ -23,6 +23,15 @@ onemax_dict = { 'name' : 'One Max',
                 'real valued' : False,
                 'multi dims' : True }
 
+trapfive_dict = { 'name' : 'Trap Five',
+                'function' : ff.trap_five,
+                'd' : 0,
+                'global minimum' : None,
+                'global maximum' : None,
+                'D' : (0, 2),
+                'real valued' : False,
+                'multi dims' : True }
+
 cross_in_tray_dict = { 'name' : 'Himmelblau',
                        'function' : ff.cross_in_tray,
                        'd' : 2,

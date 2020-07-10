@@ -13,6 +13,7 @@ func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
             'beale' : f_dict.beale_dict,
             'booth' : f_dict.booth_dict,
             'rastrigin' : f_dict.rastrigin_dict,
+            'trapfive' : f_dict.trapfive_dict
                     }
 opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
 
@@ -21,11 +22,7 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
-<<<<<<< HEAD
 @click.option('--maximize', '-max', default=False, 
-=======
-@click.option('-max', 'maximize', default=False, type=bool,
->>>>>>> 8250b2c6934ea9290ecf4a16263c4a99ff4a762b
             help='Define whether to maximize or minimize the output')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
@@ -58,4 +55,4 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
     print(result)
 
 
-# cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 3000, 50, '-max', True, '-g', '1000', '-plt', 0])
+cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 1000, 10, '-max', False, '-g', 10, '-plt', 0])

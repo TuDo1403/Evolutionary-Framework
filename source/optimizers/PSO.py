@@ -95,28 +95,15 @@ def optimize(params, plot=0, print_scr=False):
     num_f_func_calls = 0
     #
     while not pop_converge(P):
-        gen += 1
-        if max_gen_reached(gen, max_gen):
-            break
-
         # Evaluate
         f_P = evaluate(P, f_dict['function'])
         f_p = evaluate(p, f_dict['function'])
 
         num_f_func_calls += len(f_P) * 2
 
-        # Selection
-        selected_indices = selection(f_P, f_p, maximize)
-        p[selected_indices] = P[selected_indices]
-        f_p[selected_indices] = f_P[selected_indices]
-
-        g_indices = select_best_neighbors(selection_mode, f_p, maximize)
-        g = p[g_indices]
-
-        # Variate
-        v = compute_velocity(v, g, P, p, params)
-        P += v
-        #
+        gen += 1
+        if max_gen_reached(gen, max_gen):
+            break
 
         # Visualize / log result
         if print_scr and gen % 100 == 0:
@@ -133,6 +120,19 @@ def optimize(params, plot=0, print_scr=False):
                 ax_lim = (xlim, ylim, zlim) = ax.get_xlim3d(), ax.get_ylim3d(), ax.get_zlim3d()
                 scatter_3D(ax_lim, ax, P, f_P, hold=True)
             plt.pause(epsilon)
+        #
+
+        # Selection
+        selected_indices = selection(f_P, f_p, maximize)
+        p[selected_indices] = P[selected_indices]
+        f_p[selected_indices] = f_P[selected_indices]
+
+        g_indices = select_best_neighbors(selection_mode, f_p, maximize)
+        g = p[g_indices]
+
+        # Variate
+        v = compute_velocity(v, g, P, p, params)
+        P += v
         #
 
     if plottable: 

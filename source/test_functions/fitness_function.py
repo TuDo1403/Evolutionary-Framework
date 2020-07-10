@@ -9,6 +9,7 @@ def onemax(ind):
     f = sum(ind)
     return f
 
+# Only use for maximize
 def trap(ind, k):
     f = 0
     for i in range(0, len(ind), k):
@@ -16,6 +17,7 @@ def trap(ind, k):
         f += u if u == k else k - u - 1
     return f
 
+# Only use for maximize
 def trap_five(ind):
     return trap(ind, 5)
 
@@ -43,4 +45,6 @@ def beale(ind):
 
 def happy_cat(ind):
     pass
+
+# print(trap_five(np.array([0, 1, 1, 1, 1, 1, 1, 1, 1, 0])))
 
