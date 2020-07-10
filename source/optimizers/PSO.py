@@ -132,7 +132,7 @@ def optimize(params, plot=0, print_scr=False):
 
         # Variate
         v = compute_velocity(v, g, P, p, params)
-        P += v
+        P = (P + v).astype(P.dtype)
         #
 
     if plottable: 
