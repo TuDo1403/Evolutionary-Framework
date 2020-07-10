@@ -20,7 +20,7 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga }
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
-@click.option('-max', 'maximize', default=False, 
+@click.option('--maximize', '-max', default=False, 
             help='Define whether to maximize or minimize the output')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
