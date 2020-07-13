@@ -48,8 +48,8 @@ def select_best_neighbors(mode, f_p, maximize):
         return star_selection(f_p, maximize)
     if mode == 'ring':
         return ring_selection(f_p, maximize)
-    
 
+import matplotlib    
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from numpy.random import uniform
@@ -143,8 +143,8 @@ def optimize(params, plot=0, print_scr=False):
         P = (P + v).astype(P.dtype)
         #
 
-    if plottable: 
-        plt.show()     
+    # if plottable: 
+    #     plt.show()     
 
     solution =  P[comparer(f_P)].reshape(1, -1).flatten()
     opt_sol_found = None

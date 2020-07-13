@@ -88,7 +88,6 @@ def tournament_selection(f_pool, tournament_size, selection_size, maximize=False
 
     return selected_indices
 
-
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 def optimize(params, plot=False, print_scr=False):

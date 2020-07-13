@@ -2,13 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
 
-import test_functions.fitness_function_dictionary as f_dict
-
 def scatter_plot(ax_lim, ax, raw_data, title='', hold=True):
     x, y = raw_data[:, 0], raw_data[:, 1]
     ax.plot(x, y, "g.", label='genome')
-    # ax.suptitle(title, size=15)
-    # ax.title(title, loc='center')
     (xlim, ylim) = ax_lim
     ax.legend(loc=1)
     ax.set_xlim(xlim)

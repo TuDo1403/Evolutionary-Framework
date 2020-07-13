@@ -7,6 +7,8 @@ import optimizers.sGA as sga
 import optimizers.BPSO as bpso
 import test_functions.fitness_function_dictionary as f_dict
 
+import matplotlib
+
 func_dict = { 'himmelblau' : f_dict.himmelblau_dict,
             'onemax' : f_dict.onemax_dict,
             'cross_in_tray' : f_dict.cross_in_tray_dict,
@@ -22,7 +24,7 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
             help='Choose optimization method')
 @click.option('--func', '-f', required=True, type=click.Choice(func_dict.keys(), case_sensitive=False), 
             help='Choose which function to evaluate')
-@click.option('--maximize', '-max', default=False, 
+@click.option('--maximize', '-max', default=False, type=bool,
             help='Define whether to maximize or minimize the output')
 @click.option('--seed', '-s', default=1, type=int, 
             help='Random seed for the random number generator (default value : 1)')
@@ -55,4 +57,4 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
     print(result)
 
 
-cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 100, 5, '-max', True, '-g', -1, '-plt', 0, '--mode', 'star'])
+#cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 100, 5, '-max', True, '-g', -1, '-plt', 0, '--mode', 'star'])
