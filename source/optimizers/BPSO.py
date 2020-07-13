@@ -97,6 +97,7 @@ def optimize(params, plot=0, print_scr=False):
                 size=(num_inds, num_params)).astype(np.float64)
     gen = 0
     num_f_func_calls = 0
+    r = uniform(size=(num_inds, num_params))
     #
     while not pop_converge(P):
         # Evaluate
@@ -110,9 +111,16 @@ def optimize(params, plot=0, print_scr=False):
             break
 
         # Visualize / log result
-        if print_scr and gen % 100 == 0:
-            print('## Gen {}: {} (Fitness: {})'.format(gen, P[comparer(f_P)].reshape(1, -1), 
-                                                       f_P[comparer(f_P)]))
+        if print_scr:
+            best_genome = P[comparer(f_P)]
+            max_accuracy, min_accuracy = f_P.max(), f_P.min()
+            mean, std = f_P.mean(), f_P.std()
+            if print_scr:
+                print('Gen {}: best architecture : {} - accuracy (max/min) : {}/{} - mean/std : {}/{}'.format(gen, best_genome.reshape(1, -1)[0],
+                                                                                                        max_accuracy, min_accuracy, mean, std))
+            # if log:
+            #     with open('../log/{}.txt'.format('ecga'), 'a+') as f:
+            #         f.write('{},{},{},{},{},{}\n'.format(gen, max_accuracy, min_accuracy, mean, std, best_genome))
         if plottable:
             ax.clear()
             if plot == 1:
@@ -136,7 +144,6 @@ def optimize(params, plot=0, print_scr=False):
 
         # Variate
         v = compute_velocity(v, g, P, p, params)
-        r = uniform(size=(num_inds, num_params))
         P = (r < sigmoid(v)).astype(P.dtype)
         #
 

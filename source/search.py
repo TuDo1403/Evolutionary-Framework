@@ -55,4 +55,4 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
     print(result)
 
 
-cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 1000, 10, '-max', False, '-g', 10, '-plt', 0])
+cli(['-opt', 'bpso', '-f' 'onemax', '-ps', 100, 5, '-max', True, '-g', -1, '-plt', 0, '--mode', 'star'])
