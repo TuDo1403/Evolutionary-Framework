@@ -143,8 +143,8 @@ def optimize(params, plot=0, print_scr=False):
         P = (P + v).astype(P.dtype)
         #
 
-    # if plottable: 
-    #     plt.show()     
+    if plottable: 
+        plt.show()     
 
     solution =  P[comparer(f_P)].reshape(1, -1).flatten()
     opt_sol_found = None
