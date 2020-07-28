@@ -3,6 +3,7 @@ import numpy as np
 from optimizers.GA import *
 from utils.plot import *
 
+NAME = 'sGA'
 
 def variate(pop, crossover_mode):
     (num_inds, num_params) = pop.shape
@@ -49,7 +50,8 @@ def tournament_selection(f_pool, tournament_size, selection_size, maximize=False
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-def optimize(params, plot=False, print_scr=True):
+import os
+def optimize(params, plot=0, print_scr=False, save_gif=False):
     """
 
     """
@@ -68,8 +70,12 @@ def optimize(params, plot=False, print_scr=True):
     num_params = f_dict['d']
 
     # Plot search space
-    plottable = plot and num_params == 2
+    plottable = save_gif or plot and num_params == 2
     if plottable:
+        if save_gif:
+            directory = './animations/{}'.format(NAME)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
         data = get_plot_data(f_dict)
         fig, ax = plt.subplots()
         if plottable and plot == 2:
@@ -116,18 +122,25 @@ def optimize(params, plot=False, print_scr=True):
         if plottable:
             ax.clear()
             if plot == 1:
-                contour_plot(ax, data, f_dict, hold=True)
+                contour_plot(ax, data, f_dict, gen, hold=True)
                 ax_lim = (xlim, ylim) = ax.get_xlim(), ax.get_ylim()
                 scatter_plot(ax_lim, ax, pop, hold=True)
+                if save_gif:
+                    plt.savefig(os.path.join(directory, '{}-{}-g{:0>3d}.png'.format(NAME, f_dict['name'].replace(' ', ''), gen)))
             else:
                 contour_3D(ax, data, f_dict, hold=True)
                 ax_lim = (xlim, ylim, zlim) = ax.get_xlim3d(), ax.get_ylim3d(), ax.get_zlim3d()
                 scatter_3D(ax_lim, ax, pop, f_pop, hold=True)
-            plt.pause(epsilon)
+            if not save_gif:
+                plt.pause(epsilon)
         #
 
-    if plottable: 
+    if plottable and not save_gif: 
         plt.show() 
+    if save_gif:
+        path = os.path.join(directory, '{}-{}'.format(NAME, f_dict['name'].replace(' ', '')))
+        os.system('convert -delay 10 {}-g*.png {}-{}-{}g_animated.gif'.format(path, path, crossover_mode, gen))
+        os.system('rm {}*.png'.format(path))
 
     solution =  pop[comparer(f_pop)].reshape(1, -1).flatten()
     opt_sol_found = None

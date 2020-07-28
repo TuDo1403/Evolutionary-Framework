@@ -40,8 +40,10 @@ opt_dict = { 'pso' : pso, 'ecga' : ecga, 'sga' : sga , 'bpso' : bpso }
             help='Print result to command line')
 @click.option('--plot', '-plt', default=0, type=click.IntRange(0, 3), 
             help='0 (no plot), 1 (2d plot), 2 (3d plot)')
+@click.option('--savegif', '-gif', default=False, type=bool, 
+            help='Print result to command line')
 def cli(optimizer, func, maximize, seed, gen, pshape, 
-        tsize, mode, printscr, plot):
+        tsize, mode, printscr, plot, savegif):
     f_dict = func_dict[func]
     if f_dict['d'] == 0:
         f_dict['d'] = pshape[1]
@@ -53,7 +55,7 @@ def cli(optimizer, func, maximize, seed, gen, pshape,
                                                  maximize=maximize, t_size=tsize)
 
     opt_method = opt_dict[optimizer]
-    result = opt_method.optimize(params, plot, printscr)
+    result = opt_method.optimize(params, plot, printscr, savegif)
     print(result)
 
 

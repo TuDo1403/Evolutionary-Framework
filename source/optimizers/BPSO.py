@@ -3,6 +3,8 @@ import numpy as np
 from optimizers.GA import *
 from utils.plot import *
 
+NAME = 'BPSO'
+
 np.set_printoptions(suppress=True)  # Prevent numpy exponential notation on print, default False
 
 def sigmoid(x):

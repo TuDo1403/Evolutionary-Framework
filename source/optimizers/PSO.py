@@ -5,6 +5,7 @@ from utils.plot import *
 
 np.set_printoptions(suppress=True)  # Prevent numpy exponential notation on print, default False
 
+NAME = 'PSO'
 
 from numpy.random import rand
 def compute_velocity(v, g, P, p, params):
@@ -53,7 +54,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from numpy.random import uniform
-def optimize(params, plot=0, print_scr=False):
+import os
+def optimize(params, plot=0, print_scr=False, save_gif=False):
     """
 
     """
@@ -72,12 +74,17 @@ def optimize(params, plot=0, print_scr=False):
     real_valued = f_dict['real valued']
 
     # Plot search space
-    plottable = plot and num_params == 2
+    plottable = save_gif or plot and num_params == 2
     if plottable:
+        if save_gif:
+            directory = './animations/{}'.format(NAME)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
         data = get_plot_data(f_dict)
         fig, ax = plt.subplots()
         if plottable and plot == 2:
             ax = Axes3D(fig)
+
     
     # Initialize
     comparer = np.argmax if maximize else np.argmin
@@ -106,7 +113,6 @@ def optimize(params, plot=0, print_scr=False):
             break
 
         # Visualize / log result
-        # Visualize / log result
         if print_scr:
             best_genome = P[comparer(f_P)]
             max_accuracy, min_accuracy = f_P.max(), f_P.min()
@@ -120,14 +126,18 @@ def optimize(params, plot=0, print_scr=False):
         if plottable:
             ax.clear()
             if plot == 1:
-                contour_plot(ax, data, f_dict, hold=True)
+                contour_plot(ax, data, f_dict, gen, hold=True)
                 ax_lim = (xlim, ylim) = ax.get_xlim(), ax.get_ylim()
                 scatter_plot(ax_lim, ax, P, hold=True)
+                if save_gif:
+                    plt.savefig(os.path.join(directory, '{}-{}-g{:0>3d}.png'.format(NAME, f_dict['name'], gen)))    
             else:
                 contour_3D(ax, data, f_dict, hold=True)
                 ax_lim = (xlim, ylim, zlim) = ax.get_xlim3d(), ax.get_ylim3d(), ax.get_zlim3d()
                 scatter_3D(ax_lim, ax, P, f_P, hold=True)
-            plt.pause(epsilon)
+            
+            if not save_gif:
+                plt.pause(epsilon)
         #
 
         # Selection
@@ -143,8 +153,13 @@ def optimize(params, plot=0, print_scr=False):
         P = (P + v).astype(P.dtype)
         #
 
-    if plottable: 
-        plt.show()     
+    if plottable and not save_gif: 
+        plt.show()
+    if save_gif:
+        path = os.path.join(directory, '{}-{}'.format(NAME, f_dict['name']))
+        os.system('convert -delay 10 {}-g*.png {}-{}-{}g_animated.gif'.format(path, path, selection_mode, gen))
+        os.system('rm {}*.png'.format(path))
+
 
     solution =  P[comparer(f_P)].reshape(1, -1).flatten()
     opt_sol_found = None

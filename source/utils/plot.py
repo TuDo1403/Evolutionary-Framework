@@ -12,7 +12,7 @@ def scatter_plot(ax_lim, ax, raw_data, title='', hold=True):
     if not hold:
         plt.show()
 
-def contour_plot(ax, coords, f_dict, title='', hold=True):
+def contour_plot(ax, coords, f_dict, gen, hold=True):
     (X, Y, Z) = coords
     global_minimums = f_dict['global minimum']
     global_maximums = f_dict['global maximum']
@@ -28,7 +28,8 @@ def contour_plot(ax, coords, f_dict, title='', hold=True):
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
 
-    ax.set_title(f_dict['name'])
+    ax.set_title('{} - Gen: {}'.format(f_dict['name'], gen))
+    #ax.set_title(f_dict['name'])
 
     # ax.legend(loc=1)
     if not hold:
